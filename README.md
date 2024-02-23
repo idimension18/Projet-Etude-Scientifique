@@ -2,7 +2,7 @@
 Le Projet d'étude scientifique 
 
 ## Todo 
-### Pipeline d'entrée 
+### Pipeline d'entrée :
 - Programe qui prends un map et en resort un vecteur de vecteur: 0 si c'est vide, 1 si c'est un mure
   
 - Programme qui prends un tableau est construit le graphe associée
@@ -12,4 +12,5 @@ Le Projet d'étude scientifique
 - Dijkstra
 - A*
 
-### Pipeline de sortie
+### Pipeline de sortie :
+- 
