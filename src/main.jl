@@ -104,8 +104,8 @@ function flood_fill(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple
 	# A matrix that store the solution for all vertices  
 	solution_map = fill(typemax(Int64), (size(map, 1), size(map, 2)))
 	
-	queue = [start]
-	déjàVue = [start]
+	queue::Vector{Tuple{Int64, Int64}} = [start]
+	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
 	is_target_reached = false
 	solution_map[start[2], start[1]] = 0
 	
@@ -149,7 +149,7 @@ function g_min_pop!(queue::Vector{Tuple{Int64, Int64}}, sol::Matrix{Int64})
 	return min_dist
 end
 
-# A* algorithm implementation 
+# Dijsktra  algorithm implementation 
 function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64})
 	# Directly check if target is reachable 
 	if !(is_pos_valid(map, target) && is_pos_valid(map, start))
@@ -158,9 +158,8 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 
 	solution_map::Matrix{Int64} = fill(typemax(Int64), (size(map, 1), size(map, 2)))
 	
-	queue = [start]
-	déjàVue = [start]
-	is_target_relaxed = false
+	queue::Vector{Tuple{Int64, Int64}} = [start]
+	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
 	solution_map[start[2], start[1]] = 0
 	
 	while queue != []
@@ -231,9 +230,8 @@ function AStar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 
 	solution_map::Matrix{Int64} =fill(typemax(Int64), (size(map, 1), size(map, 2)))
 	
-	queue = [start]
-	déjàVue = [start]
-	is_target_relaxed = false
+	queue::Vector{Tuple{Int64, Int64}} = [start]
+	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
 	solution_map[start[2], start[1]] = 0
 	
 	while queue != []
@@ -293,5 +291,6 @@ function test(path::String, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int
 	println("------------")
 	sol3 = @time AStar(map_matrix, start, target)
 
-	print()
+	println()
+	print(sol1)
 end
