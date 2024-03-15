@@ -47,12 +47,12 @@ end
 # Get the distance to go to pos
 function get_distance_to_go_to(map::Matrix{Char}, pos::Tuple{Int64, Int64})
 	c:: Char = map[pos[2], pos[1]]
-	if c == '.'
+	if c == 'S'
+		return 5
+	elseif c == 'W'
+		return 8
+	else
 		return 1
-	elseif c == 'O'
-		return 2
-	else 
-		return typemax(Int64)
 	end
 end
 
@@ -84,7 +84,7 @@ function get_path_from_sol(map::Matrix{Char}, solution_matrix::Matrix{Int64}, ta
 	g = solution_matrix[node[2], node[1]]
 	
 	while g != 0
-		(g, node) = get_g_min(map::Matrix{Char}, solution_matrix, node)
+		(g, node) = get_g_min(map, solution_matrix, node)
 		pushfirst!(path, node)
 	end
 
@@ -96,6 +96,7 @@ end
 # --------------------
 # Flood fill algorithm implementation 
 function flood_fill(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64})
+	node_seen = 1
 	# Directly check if target is reachable 
 	if !(is_pos_valid(map, target) && is_pos_valid(map, start))
 		return (typemax(Int64), [])
@@ -105,7 +106,10 @@ function flood_fill(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple
 	solution_map = fill(typemax(Int64), (size(map, 1), size(map, 2)))
 	
 	queue::Vector{Tuple{Int64, Int64}} = [start]
-	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
+	
+	déjàVue::Matrix{Bool} = fill(false, (size(map, 1), size(map, 2)))
+	déjàVue[start[2], start[1]] = true
+
 	is_target_reached = false
 	solution_map[start[2], start[1]] = 0
 	
@@ -119,7 +123,9 @@ function flood_fill(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple
 			is_target_reached = neighbor == target
 
 			# update neighbor sol value
-			if is_pos_valid(map, neighbor) && !(neighbor in déjàVue)
+			if is_pos_valid(map, neighbor) && !déjàVue[neighbor[2], neighbor[1]]
+				node_seen += 1 
+			
 				solution_map[neighbor[2], neighbor[1]] = solution_map[node[2], node[1]][1] + 1
 				push!(queue, neighbor)
 			end
@@ -128,7 +134,7 @@ function flood_fill(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple
 		end
 	end
 	
-	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target))
+	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target), node_seen)
 end
 
 
@@ -157,10 +163,12 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 	end
 
 	solution_map::Matrix{Int64} = fill(typemax(Int64), (size(map, 1), size(map, 2)))
+	solution_map[start[2], start[1]] = 0
 	
 	queue::Vector{Tuple{Int64, Int64}} = [start]
-	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
-	solution_map[start[2], start[1]] = 0
+	
+	déjàVue::Matrix{Bool} = fill(false, (size(map, 1), size(map, 2)))
+	déjàVue[start[2], start[1]] = true
 	
 	while queue != []
 		# Relax the vertice with the smallest heurestic
@@ -185,8 +193,8 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 				end
 				
 				# If the neighbor is unseen, we add it to the queue so we can relax it later 
-				if !(neighbor in déjàVue)
-					push!(déjàVue, neighbor)
+				if !déjàVue[neighbor[2], neighbor[1]]
+					déjàVue[neighbor[2], neighbor[1]] = true
 					push!(queue, neighbor)
 				end
 				
@@ -194,7 +202,7 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 		end
 	end
 
-	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target))
+	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target), node_seen)
 end
 
 # A* 
@@ -223,16 +231,19 @@ end
 
 # A* algorithm implementation 
 function AStar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64})
+	node_seen = 1
 	# Directly check if target is reachable 
 	if !(is_pos_valid(map, target) && is_pos_valid(map, start))
-		return (typemax(Int64), [])
+		return (typemax(Int64), [], node_seen)
 	end
 
 	solution_map::Matrix{Int64} =fill(typemax(Int64), (size(map, 1), size(map, 2)))
+	solution_map[start[2], start[1]] = 0
 	
 	queue::Vector{Tuple{Int64, Int64}} = [start]
-	déjàVue::Vector{Tuple{Int64, Int64}} = [start]
-	solution_map[start[2], start[1]] = 0
+	
+	déjàVue::Matrix{Bool} = fill(false, (size(map, 1), size(map, 2)))
+	déjàVue[start[2], start[1]] = true
 	
 	while queue != []
 		# Relax the vertice with the smallest heurestic
@@ -257,8 +268,9 @@ function AStar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 				end
 				
 				# If the neighbor is unseen, we add it to the queue so we can relax it later 
-				if !(neighbor in déjàVue)
-					push!(déjàVue, neighbor)
+				if !déjàVue[neighbor[2], neighbor[1]]
+					node_seen += 1
+					déjàVue[neighbor[2], neighbor[1]] = true
 					push!(queue, neighbor)
 				end
 				
@@ -266,7 +278,7 @@ function AStar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 		end
 	end
 
-	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target))
+	return (solution_map[target[2], target[1]], get_path_from_sol(map, solution_map, target), node_seen)
 end
 
 
@@ -278,19 +290,45 @@ function test(path::String, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int
 	println("Flood fill :")
 	println("-------------")
 	sol1 = @time flood_fill(map_matrix, start, target)
+	println("Nombre de case vue : ", sol1[3])
 
 	println()
 
 	println("Dijkstra :")
 	println("------------")
 	sol2 = @time dijkstra(map_matrix, start, target)
+	println("Nombre de case vue : ", sol2[3])
 
 	println()
 
 	println("A* :")
 	println("------------")
 	sol3 = @time AStar(map_matrix, start, target)
+	println("Nombre de case vue : ", sol2[3])
 
 	println()
 	print(sol1)
 end
+
+function algoDijkstra(fname, D, A)
+	map_matrix = map_to_matrix(fname)
+	
+	println("Dijkstra :")
+	println("------------")
+	sol = @time dijkstra(map_matrix, D, A)
+	println("Distance trouvée : ", sol[1])
+	println("Nombre de case vue : ", sol[3])
+end
+
+
+function algoAstar(fname, D, A)
+	map_matrix = map_to_matrix(fname)
+	
+	println("A* :")
+	println("------------")
+	sol = @time AStar(map_matrix, D, A)
+	println("Distance trouvée : ", sol[1])
+	println("Nombre de case vue : ", sol[3])
+end
+
+# arrivee (189, 193)      depart (226, 437)
