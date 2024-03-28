@@ -1,16 +1,11 @@
 # Projet-Etude-Scientifique
-Le Projet d'étude scientifique 
+Ce projet porte sur l'étude d'algorithme de plus court chemin appliqué sur divers maps.
 
-## Todo 
-### Pipeline d'entrée :
-- Programe qui prends un map et en resort un vecteur de vecteur: 0 si c'est vide, 1 si c'est un mure
-  
-- Programme qui prends un tableau est construit le graphe associée
+## Dependances :
+Afin de pouvoir utilisé ce programme, les librairies suivantes doivent être installé dans julia REPL : 
+- DataType
 
-### Coeur du programme :
-- Exaustive
-- Dijkstra
-- A*
-
-### Pipeline de sortie :
-- 
+## Utilisation
+Le programme doit être chargé dans julia REPL avec la commande : `include("main.jl")`  <br>
+Après avoir été chargé, ce programme offre plusieur option de test possible :  <br>
+- la fonction ``
