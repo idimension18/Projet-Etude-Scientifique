@@ -29,7 +29,7 @@ Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heur
 
 
 ### *Notes* :
-Les cordonnée de la map sont traités au format suivant : (abscisse, ordonnées) <br>
+Les cordonnée de la map sont traités au format suivant : (abscisse, ordonnée) <br>
 Avec l'axe des ordonnées dirigée vers le bas
 
 ## Observation
