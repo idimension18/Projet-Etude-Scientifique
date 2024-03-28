@@ -29,7 +29,7 @@ Produit le même test mais que pour l'algo de WA avec w comme poids sur l'heuris
 
 ## Observation
 Considérons le test suivant : Source = theglaive.map ; Debut = (193, 189) ; Fin (437, 226) <br>
-On observe les resultats suivants : 
+Réalisé sur mon ordinateur, on observe les resultats suivants : 
 
 ### *Flood fill* 
 temps d'éxecution : ~ 0.13 seconds <br>
