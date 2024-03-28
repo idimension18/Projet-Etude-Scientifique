@@ -32,22 +32,32 @@ Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heur
 Les cordonnée de la map sont traités au format suivant : (abscisse, ordonnée) <br>
 Avec l'axe des ordonnées dirigée vers le bas
 
-## Observation
-Considérons le test suivant : Source = theglaive.map ; Debut = (193, 189) ; Fin = (437, 226) <br>
-Réalisé sur mon ordinateur, on observe les resultats suivants : 
+## Observations
+Les test suivant on été réalisé sur mon ordinateur.
 
-### *Flood fill* 
-temps d'éxecution : ~ 0.13 seconds <br>
+### *theglaive.map :  debut = (437, 226) ; fin = (193, 189)*
+- *Flood fill* 
+temps d'éxecution : ~ 0.134 seconds <br>
 Distance trouvée : 281 <br>
 Nombre de case vue : ~ 94420 <br>
 
-### *Dijkstra*
-Temps d'éxecution : ~ 0.13 seconds <br>
+- *Dijkstra*
+Temps d'éxecution : ~ 0.132 seconds <br>
 Distance trouvée : 335 <br>
 Nombre de case vue : ~ 71241  <br>
 
-### *A**
+- *A**
 Temps d'éxecution : ~ 0.005 seconds  <br>
 Distance trouvée : 335  <br>
 Nombre de case vue : ~ 16499  <br>
 
+### *64room_007.map : debut = (10, 10) ; fin = (500, 500)*
+- *Dijkstra*
+Temps d'éxecution : ~ 0.073 seconds <br>
+Distance trouvée : 1060 <br>
+Nombre de case vue : ~ 253711 <br>
+
+- *A**
+Temps d'éxecution : ~ 0.035 seconds <br>
+Distance trouvée : 1060 <br>
+Nombre de case vue : ~ 142628 <br>
