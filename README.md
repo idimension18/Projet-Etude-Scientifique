@@ -7,7 +7,7 @@ Afin de pouvoir utilisé ce programme, les librairies suivantes doivent être in
 - Image
 
 ## Utilisation
-Le programme doit être chargé dans julia REPL avec la commande : `include("main.jl")`  <br>
+Le programme principale (main.jl) doit être chargé dans julia REPL avec la commande include  <br>
 Après avoir été chargé, ce programme offre plusieurs options de test possible :  <br>
 
 ### Tests possibles :
