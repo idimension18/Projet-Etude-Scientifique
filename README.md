@@ -27,6 +27,11 @@ Produit le même test mais que pour l'algo de A*
 - `algoWA(source, debut, fin, w)` <br>
 Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heuristique)
 
+
+### *Notes*
+Les cordonnée de la map sont traités au format suivant : (abscisse, ordonnées) <br>
+Avec l'axe des ordonnées dirigée vers le bas
+
 ## Observation
 Considérons le test suivant : Source = theglaive.map ; Debut = (193, 189) ; Fin = (437, 226) <br>
 Réalisé sur mon ordinateur, on observe les resultats suivants : 
