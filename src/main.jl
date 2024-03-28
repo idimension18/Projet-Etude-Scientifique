@@ -35,7 +35,7 @@ end
 
 # Image rendering
 # ---------------
-# Colors Constantes 
+# Colors constants :
 black = RGB(1, 1, 1)
 white = RGB(0, 0, 0)
 
@@ -78,7 +78,7 @@ end
 # Tool functions 
 # ---------------- 
 #= 
-	verify if the postion pos in the map is valid or not 
+	Verify if the postion pos in the map is valid or not 
 	To be valid, pos must be in the map and not on a wall  
 =# 
 function is_pos_valid(map::Matrix{Char}, pos::Tuple{Int64, Int64}) 
@@ -185,9 +185,12 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 	solution_map::Matrix{Tuple{Int64, Tuple{Int64, Int64}}} = 
 		fill((typemax(Int64), (-1, -1)), (size(map, 1), size(map, 2)))
 	solution_map[start[2], start[1]] = (0, (-1, -1))
-	
+
+	# A min heap for optimisation
 	min_heap::MutableBinaryHeap{Tuple{Int64, Tuple{Int64, Int64}}} = 
 		MutableBinaryHeap{Tuple{Int64, Tuple{Int64, Int64}}}(Base.By(first))
+
+	# For the min heap, we store pointers adresses for modifications
 	address_dict = Dict()
 	address_dict[start] = push!(min_heap, (0, start))
 	
@@ -216,11 +219,13 @@ function dijkstra(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{I
 					solution_map[neighbor[2], neighbor[1]] = (neighbor_dist, node)
 					
 					if !déjàVue[neighbor[2], neighbor[1]]
+						# If the neighbor is not DéjàVue, we must add his value to the heap
 						address_dict[neighbor] = push!(min_heap, (neighbor_dist, neighbor))
 						déjàVue[neighbor[2], neighbor[1]] = true
 
 						node_seen += 1 
 					else
+						# If neighbor is DéjàVue, he is already in the heap, so we must update his value
 						update!(min_heap, address_dict[neighbor], (neighbor_dist, neighbor))
 					end
 				end
@@ -241,7 +246,7 @@ end
 
 
 # A* algorithm implementation 
-function Astar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64})
+function Astar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64}, w::Float64)
 	node_seen = 0 
 	
 	# Directly check if target is reachable 
@@ -253,9 +258,12 @@ function Astar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 	solution_map::Matrix{Tuple{Int64, Tuple{Int64, Int64}}} = 
 		fill((typemax(Int64), (-1, -1)), (size(map, 1), size(map, 2)))
 	solution_map[start[2], start[1]] = (0, (-1, -1))
-	
-	min_heap::MutableBinaryHeap{Tuple{Int64, Tuple{Int64, Int64}}} = 
-		MutableBinaryHeap{Tuple{Int64, Tuple{Int64, Int64}}}(Base.By(first))
+
+	# A min heap for optimisation
+	min_heap::MutableBinaryHeap{Tuple{Float64, Tuple{Int64, Int64}}} = 
+		MutableBinaryHeap{Tuple{Float64, Tuple{Int64, Int64}}}(Base.By(first))
+
+	# For the min heap, we store pointers adresses for modifications
 	address_dict = Dict()
 	address_dict[start] = push!(min_heap, (0, start))
 	
@@ -284,12 +292,14 @@ function Astar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 					solution_map[neighbor[2], neighbor[1]] = (neighbor_dist, node)
 					
 					if !déjàVue[neighbor[2], neighbor[1]]
+						# If the neighbor is not DéjàVue, we must add his value to the heap
 						address_dict[neighbor] = push!(min_heap, (neighbor_dist + manhattan_dist(neighbor, target), neighbor))
 						déjàVue[neighbor[2], neighbor[1]] = true
 
 						node_seen += 1 
 					else
-						update!(min_heap, address_dict[neighbor], (neighbor_dist + manhattan_dist(neighbor, target), neighbor))
+						# If neighbor is DéjàVue, he is already in the heap, so we must update his value
+						update!(min_heap, address_dict[neighbor], (neighbor_dist +  manhattan_dist(neighbor, target), neighbor))
 					end
 				end
 			end 
@@ -298,6 +308,7 @@ function Astar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int6
 
 	return (solution_map[target[2], target[1]][1], get_path_from_sol(map, solution_map, target), node_seen)
 end
+
 
 
 # Weighted A*  (WA)
@@ -314,9 +325,12 @@ function WAstar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int
 	solution_map::Matrix{Tuple{Int64, Tuple{Int64, Int64}}} = 
 		fill((typemax(Int64), (-1, -1)), (size(map, 1), size(map, 2)))
 	solution_map[start[2], start[1]] = (0, (-1, -1))
-	
+
+	# A min heap for optimisation
 	min_heap::MutableBinaryHeap{Tuple{Float64, Tuple{Int64, Int64}}} = 
 		MutableBinaryHeap{Tuple{Float64, Tuple{Int64, Int64}}}(Base.By(first))
+
+	# For the min heap, we store pointers adresses for modifications
 	address_dict = Dict()
 	address_dict[start] = push!(min_heap, (0, start))
 	
@@ -345,11 +359,13 @@ function WAstar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int
 					solution_map[neighbor[2], neighbor[1]] = (neighbor_dist, node)
 					
 					if !déjàVue[neighbor[2], neighbor[1]]
+						# If the neighbor is not DéjàVue, we must add his value to the heap
 						address_dict[neighbor] = push!(min_heap, (neighbor_dist + w * manhattan_dist(neighbor, target), neighbor))
 						déjàVue[neighbor[2], neighbor[1]] = true
 
 						node_seen += 1 
 					else
+						# If neighbor is DéjàVue, he is already in the heap, so we must update his value
 						update!(min_heap, address_dict[neighbor], (neighbor_dist + w * manhattan_dist(neighbor, target), neighbor))
 					end
 				end
@@ -360,8 +376,9 @@ function WAstar(map::Matrix{Char}, start::Tuple{Int64, Int64}, target::Tuple{Int
 	return (solution_map[target[2], target[1]][1], get_path_from_sol(map, solution_map, target), node_seen)
 end
 
-# Tests  
-# -------
+
+# Fonctions de tests  
+# ---------------------
 function test(fname::String, D::Tuple{Int64, Int64}, A::Tuple{Int64, Int64})
 	map_matrix = map_to_matrix(fname)
 
@@ -438,4 +455,11 @@ function algoWA(fname, D, A, w)
 end
 
 
-# arrivee (189, 193)      depart (226, 437)
+#= 
+Tests d'executions :
+---------------------
+theglaive.map :  arrivee (189, 193)      depart (226, 437)
+
+64room_007.map : arrivee (10, 10)     depart (500, 500)
+=#
+
