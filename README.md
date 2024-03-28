@@ -10,7 +10,7 @@ Afin de pouvoir utilisé ce programme, les librairies suivantes doivent être in
 Le programme doit être chargé dans julia REPL avec la commande : `include("main.jl")`  <br>
 Après avoir été chargé, ce programme offre plusieur option de test possible :  <br>
 
-### Fonctionnalités :
+### Tests possibles :
 - `test(source, debut, fin)` <br>
 Test l'entrée sur les 3 fonction principale (flood_fill, dijkstra, A*) <br>
 Elle afficheras ainsi les states d'éxecution, ainsi que le résultat, et eventuellement une sortie graphique (Si ça marche)
