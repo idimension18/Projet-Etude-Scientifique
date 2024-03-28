@@ -28,7 +28,7 @@ Produit le même test mais que pour l'algo de A*
 Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heuristique)
 
 
-### *Notes*
+### *Notes* :
 Les cordonnée de la map sont traités au format suivant : (abscisse, ordonnées) <br>
 Avec l'axe des ordonnées dirigée vers le bas
 
