@@ -36,28 +36,28 @@ Avec l'axe des ordonnées dirigée vers le bas
 Les test suivant on été réalisé sur mon ordinateur.
 
 ### *theglaive.map :  debut = (437, 226) ; fin = (193, 189)*
-- *Flood fill* 
+- *Flood fill* <br>
 temps d'éxecution : ~ 0.134 seconds <br>
 Distance trouvée : 281 <br>
 Nombre de case vue : ~ 94420 <br>
 
-- *Dijkstra*
+- *Dijkstra* <br>
 Temps d'éxecution : ~ 0.132 seconds <br>
 Distance trouvée : 335 <br>
 Nombre de case vue : ~ 71241  <br>
 
-- *A**
+- *A** <br>
 Temps d'éxecution : ~ 0.005 seconds  <br>
 Distance trouvée : 335  <br>
 Nombre de case vue : ~ 16499  <br>
 
 ### *64room_007.map : debut = (10, 10) ; fin = (500, 500)*
-- *Dijkstra*
+- *Dijkstra* <br>
 Temps d'éxecution : ~ 0.073 seconds <br>
 Distance trouvée : 1060 <br>
 Nombre de case vue : ~ 253711 <br>
 
-- *A**
+- *A** <br>
 Temps d'éxecution : ~ 0.035 seconds <br>
 Distance trouvée : 1060 <br>
 Nombre de case vue : ~ 142628 <br>
