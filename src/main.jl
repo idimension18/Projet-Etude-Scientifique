@@ -1,4 +1,4 @@
-using DataStructures, Images, ImageView
+using DataStructures, Images
 
 # MAP PARSER
 # -------------- 
@@ -71,7 +71,7 @@ function solution_to_image(map::Matrix{Char}, path::Vector{Tuple{Int64, Int64}},
 		end
 	end
 	
-	ImageView.imshow(image)
+	display(image)
 end
 
 
@@ -362,30 +362,33 @@ end
 
 # Tests  
 # -------
-function test(path::String, start::Tuple{Int64, Int64}, target::Tuple{Int64, Int64})
-	map_matrix = map_to_matrix(path)
+function test(fname::String, D::Tuple{Int64, Int64}, A::Tuple{Int64, Int64})
+	map_matrix = map_to_matrix(fname)
 
-	println("Flood fill :")
-	println("-------------")
-	sol1 = @time flood_fill(map_matrix, start, target)
-	println("Nombre de case vue : ", sol1[3])
-
+	println("Flood Fill :")
+	println("------------")
+	sol = @time flood_fill(map_matrix, D, A)
+	println("Distance trouvée : ", sol[1])
+	println("Nombre de case vue : ", sol[3])
+	solution_to_image(map_matrix, sol[2], D, A)
+	
 	println()
 
 	println("Dijkstra :")
 	println("------------")
-	sol2 = @time dijkstra(map_matrix, start, target)
-	println("Nombre de case vue : ", sol2[3])
+	sol = @time dijkstra(map_matrix, D, A)
+	println("Distance trouvée : ", sol[1])
+	println("Nombre de case vue : ", sol[3])
+	solution_to_image(map_matrix, sol[2], D, A)
 
 	println()
 
 	println("A* :")
 	println("------------")
-	sol3 = @time AStar(map_matrix, start, target)
-	println("Nombre de case vue : ", sol2[3])
-
-	println()
-	print(sol1)
+	sol = @time Astar(map_matrix, D, A)
+	println("Distance trouvée : ", sol[1])
+	println("Nombre de case vue : ", sol[3])
+	solution_to_image(map_matrix, sol[2], D, A)
 end
 
 function algoFloodFill(fname, D, A)
