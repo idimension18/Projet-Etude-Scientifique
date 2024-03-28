@@ -8,12 +8,12 @@ Afin de pouvoir utilisé ce programme, les librairies suivantes doivent être in
 
 ## Utilisation
 Le programme doit être chargé dans julia REPL avec la commande : `include("main.jl")`  <br>
-Après avoir été chargé, ce programme offre plusieur option de test possible :  <br>
+Après avoir été chargé, ce programme offre plusieurs options de test possible :  <br>
 
 ### Tests possibles :
 - `test(source, debut, fin)` <br>
-Test l'entrée sur les 3 fonction principale (flood_fill, dijkstra, A*) <br>
-Elle afficheras ainsi les states d'éxecution, ainsi que le résultat, et eventuellement une sortie graphique (Si ça marche)
+Test l'entrée sur les 3 fonctions principales (flood_fill, dijkstra, A*) <br>
+Elle affichera ainsi les statistiques d'éxecution, ainsi que le résultat et eventuellement une sortie graphique.
 
 - `algoFloodFill(source, debut, fin)` <br>
 Produit le même test mais que pour l'algo du Flood Fill
@@ -25,7 +25,7 @@ Produit le même test mais que pour l'algo de Dijkstra
 Produit le même test mais que pour l'algo de A*
 
 - `algoWA(source, debut, fin, w)` <br>
-Produit le même test mais que pour l'algo de WA avec w comme poids sur l'heuristique
+Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heuristique)
 
 ## Observation
 Considérons le test suivant : Source = theglaive.map ; Debut = (193, 189) ; Fin = (437, 226) <br>
