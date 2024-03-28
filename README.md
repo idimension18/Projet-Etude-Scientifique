@@ -44,5 +44,5 @@ Nombre de case vue : ~ 71241  <br>
 ### *A**
 Temps d'éxecution : ~ 0.005 seconds  <br>
 Distance trouvée : 335  <br>
-Nombre de case vue : 16499  <br>
+Nombre de case vue : ~ 16499  <br>
 
