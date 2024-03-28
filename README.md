@@ -16,16 +16,16 @@ Test l'entrée sur les 3 fonctions principales (flood_fill, dijkstra, A*) <br>
 Elle affichera ainsi les statistiques d'éxecution, ainsi que le résultat et eventuellement une sortie graphique.
 
 - `algoFloodFill(source, debut, fin)` <br>
-Produit le même test mais que pour l'algo du Flood Fill
+Produit le même test mais que pour l'algo du Flood Fill.
 
 - `algoDijkstra(source, debut, fin)` <br>
-Produit le même test mais que pour l'algo de Dijkstra
+Produit le même test mais que pour l'algo de Dijkstra.
 
 - `algoASstar(source, debut, fin)` <br>
-Produit le même test mais que pour l'algo de A*
+Produit le même test mais que pour l'algo de A*.
 
 - `algoWA(source, debut, fin, w)` <br>
-Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heuristique)
+Produit le même test mais que pour l'algo de WA. (avec w comme poids sur l'heuristique).
 
 
 ### *Notes* :
